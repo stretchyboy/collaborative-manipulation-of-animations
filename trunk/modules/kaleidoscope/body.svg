@@ -1,0 +1,25 @@
+    <g id="{sInstance}_rotator">
+      <g>
+        <g>
+          {.repeated section rotations}
+              <g transform="rotate({angle_deg})" style="clip-path: url(#{sInstance}_cp)">
+                  <use xlink:href="#{sInstance}_pg1"/>
+                  <use xlink:href="#{sInstance}_r1"/>
+              </g>
+          {.end}
+        </g>
+        <g transform="scale(1,-1)">
+          {.repeated section rotations}
+              <g transform="rotate({angle_deg})" style="clip-path: url(#{sInstance}_cp)">
+                  <use xlink:href="#{sInstance}_pg1"/>
+                  <use xlink:href="#{sInstance}_r1"/>
+              </g>
+          {.end}
+        </g>
+        {.section rotation_duration}
+            <animateTransform attributeName="transform" type="rotate" begin="0s" dur="{rotation_duration}s" values="0;359" repeatCount="indefinite"/>
+        {.end}
+      </g>
+          <animateTransform attributeName="transform" type="translate" begin="0s" dur="{pos_duration}s" values="{pos_path}" repeatCount="indefinite"/>
+    </g>
+
