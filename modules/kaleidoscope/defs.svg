@@ -1,0 +1,17 @@
+<clipPath id="{sInstance}_cp" clipPathUnits="userSpaceOnUse">
+            <polygon points="{clip_coord}"/>
+        </clipPath>
+
+        <g id="{sInstance}_r1">
+            <g>
+                <g id="image">
+                    <image x="0" y="0" width="{image_width}" height="{image_height}" xlink:href="{image_url}" />
+                </g>
+                {.section slip_duration}
+                  <animateTransform attributeName="transform" type="translate" begin="0s" dur="{slip_duration}s" values="{slip_path}" repeatCount="indefinite"/>
+                {.end}
+            </g>
+            
+        </g>
+
+        <polygon id="{sInstance}_pg1" points="{triangle_coord}" style="stroke: none; fill: none"/>
