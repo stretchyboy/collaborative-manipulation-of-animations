@@ -46,6 +46,14 @@ class actor
      */
     function __construct($aParams, $bCalc = true)
     {
+       foreach($this->aControls as $sField => $aField)
+       {
+         if(isset($aField['default']))
+         {
+           $this->aValues[$sField] = $aField['default'];
+         }
+       }
+       
        if(isset($aParams['sInstance']))
        { 
          $this->sInstance = $aParams['sInstance'];
@@ -103,6 +111,19 @@ class actor
     {
       return $this->expandTemplate('body.svg');
     }
+    
+    function getAnimatedXYFromPath($sControlPath, $fMaxX = 100, $fMaxY = 100)
+    {
+      $aControlPath = array();
+      $aSections = split(';', trim($sControlPath));
+      foreach( $aSections as $sSection)
+      {
+        $aSections = split(',', $sSection);
+        $aControlPath[] = array('x'=>(int) trim($aSections[0]), 'y'=>(int) trim($aSections[1]));
+      }
+      return $this->getAnimatedXY($aControlPath, $fMaxX, $fMaxY);
+    }
+    
     
     function getAnimatedXY($aControlPath, $fMaxX = 100, $fMaxY = 100)
     {

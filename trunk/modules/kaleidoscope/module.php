@@ -9,6 +9,19 @@
 		* array of controls
 		*/
 		var $aControls = array(
+		  'sides' => array('title'=>'Number of Sides', 'default' => 3, 'type'=>'int', 'min'=>3, 'max'=>12),
+      'radius' => array('title'=>'Radius', 'default' => 150, 'type'=>'int', 'min'=>50, 'max'=>500),
+      'image_url' => array('title'=>'URL for picture','default' => 'images/Fagus_sylvatica_autumn_leaves.jpg', 'type'=>'string'),
+      
+      'pos_ppath' => array('title'=>'Where does it go on the screen', 'default' => '150,150;200,200', 'type'=>'path', 'regexp'=>'([0-9]+\,[0-9]+)\;([0-9]+\,[0-9]+\;?)+'),
+      'pos_duration' => array('title'=>'How long does the position movement last', 'default' => 60, 'type'=>'int', 'min'=>10, 'max'=>120),
+      
+      'rotation_duration' => array('title'=>'How long does the rotation last','default' => 60, 'type'=>'int', 'min'=>10, 'max'=>120),
+      
+      'slip_ppath' => array('title'=>'Where does the trinagle slip through','default' => '0,0;100,100', 'type'=>'percentagepath', 'regexp'=>'([0-9]+\,[0-9]+)\;([0-9]+\,[0-9]+\;?)+'),
+      'slip_duration' => array('title'=>'Image slip animation last','default' => 60, 'type'=>'int', 'min'=>10, 'max'=>120),
+      
+      'orginal_scale' => array('title'=>'How much bigger than the kalediscope is the image','default' => 2, 'type'=>'int', 'min'=>1, 'max'=>5),
 		  );
 
 	/**
@@ -17,24 +30,6 @@
 		* array of values
 		*/
 		var $aValues = array(
-      'sides' => 3,
-      'radius' => 150,
-      //'output_width' => 300,
-      //'output_height' => 300,
-      'pos_duration' => 60,
-      'pos_control' => array(
-                          array('x'=>150,'y'=>150),
-                          array('x'=>200,'y'=>200),
-                        ),
-      
-      'image_url' => 'images/Fagus_sylvatica_autumn_leaves.jpg',
-      'rotation_duration' => 60,
-      'slip_duration' => 60,
-      'slip_control' => array(
-                          array('x'=>0,'y'=>0),
-                          array('x'=>100,'y'=>100),
-                        ),
-      'orginal_scale' => 2,
     );
 
 	
@@ -85,25 +80,11 @@
       $fSlipMaxX = ($this->aValues['triangle_x'] - 2) - $this->aValues['image_width'];
       $fSlipMaxY = ($this->aValues['triangle_y'] - 2) - $this->aValues['image_height'];
       
-
-      $this->aValues['slip_path'] = $this->getAnimatedXY($this->aValues['slip_control'], $fSlipMaxX, $fSlipMaxY);
-
-      
-      $this->aValues['pos_path'] = $this->getAnimatedXY($this->aValues['pos_control']);
+      $this->aValues['slip_path'] = $this->getAnimatedXYFromPath($this->aValues['slip_ppath'], $fSlipMaxX, $fSlipMaxY);
+      $this->aValues['pos_path'] = $this->getAnimatedXYFromPath($this->aValues['pos_ppath']);
+      //$this->aValues['slip_path'] = $this->getAnimatedXY($this->aValues['slip_control'], $fSlipMaxX, $fSlipMaxY);
+      //
       
     }
     
-    function getAnimatedXY($aControlPath, $fMaxX = 100, $fMaxY = 100)
-    {
-      $aClosedPath = $aControlPath;
-      $aClosedPath[] = $aControlPath[0];
-      $aAnim = array();
-      foreach($aClosedPath as $aPos)
-      {
-        $aAnim[] = ($aPos['x'] / 100 * $fMaxX) .",".($aPos['y'] / 100 *$fMaxY);
-      }
-     
-      $sAnimation = join(';', $aAnim);
-      return $sAnimation;
-    }
   }
