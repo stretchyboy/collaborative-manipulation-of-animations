@@ -12,6 +12,7 @@
 		  array('name' => 'sides','title'=>'Number of Sides', 'default' => 3, 'type'=>'int', 'min'=>3, 'max'=>12),
       array('name' => 'radius','title'=>'Radius', 'default' => 150, 'type'=>'int', 'min'=>50, 'max'=>500),
       array('name' => 'image_url','length'=>100,'title'=>'URL for picture','default' => 'images/Fagus_sylvatica_autumn_leaves.jpg', 'type'=>'url'),
+      //array('name' => 'image_attribution','length'=>100,'title'=>'Attribution for picture','default' => 'Photographer Luis Fernández García L. Fdez. This image is licensed under the Creative Commons Attribution-Share Alike Licence', 'type'=>'string'),
       
       array('name' => 'pos_ppath','title'=>'Where does it go on the screen', 'default' => '150,150;200,200', 'type'=>'path', 'regexp'=>'([0-9]+\,[0-9]+)\;([0-9]+\,[0-9]+\;?)+'),
       array('name' => 'pos_duration','title'=>'How long does the position movement last', 'default' => 60, 'type'=>'int', 'min'=>10, 'max'=>120),
