@@ -81,6 +81,9 @@
       $fSlipMaxY = ($this->aValues['triangle_y'] - 2) - $this->aValues['image_height'];
       
       $this->aValues['slip_path'] = $this->getAnimatedXYFromPath($this->aValues['slip_ppath'], $fSlipMaxX, $fSlipMaxY);
+      
+      $this->aValues['pos_coords'] = $this->getAnimatedCoordsFromPath($this->aValues['pos_ppath']);
+      
       $this->aValues['pos_path'] = $this->getAnimatedXYFromPath($this->aValues['pos_ppath']);
       //$this->aValues['slip_path'] = $this->getAnimatedXY($this->aValues['slip_control'], $fSlipMaxX, $fSlipMaxY);
       //

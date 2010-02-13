@@ -27,6 +27,7 @@
       }
       $this->aValues['aLevels'] = $aLevels;
       $this->aValues['scale'] = $this->aValues['size'] / 2;
+      $this->aValues['pos_coords'] = $this->getAnimatedCoordsFromPath($this->aValues['pos_ppath']);
       $this->aValues['pos_path'] = $this->getAnimatedXYFromPath($this->aValues['pos_ppath']);
       //echo "\n<br><pre>\nthis->aValues =" .var_export($this->aValues, TRUE)."</pre>";
     }
