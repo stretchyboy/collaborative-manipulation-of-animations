@@ -30,7 +30,11 @@ if ($msg != '')
   }
   
   $aOut = $aParameters;
-	$aOut['actors'] = $aActorParams;
+	
+  $aOut['iframe_width'] = $aParameters['width']+15;
+	$aOut['iframe_height'] = $aParameters['height']+15;
+	
+  $aOut['actors'] = $aActorParams;
 	//echo "\n<br><pre>\naOut =" .var_export($aOut, TRUE)."</pre>";
 	
 	$sOut = json_encode($aOut);

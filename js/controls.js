@@ -3,16 +3,14 @@ var formResponce = null;
 var bChanged = false;
 var comet;
 
-var rebuildSVG = function(State)
+var rebuildSVG = function(oState)
 {
-	//var oForm = $("controller");//el.getParent('form');
-	var oState = new Hash(State);
-	var sQuery = oState.toQueryString();
-	
+	var d = new Date();
+	var sURL = 'static.php?cb='+d.getTime();
 	var eOutputframe = $('outputframe');
-	eOutputframe.set('src', 'k.php?'+sQuery);
-	eOutputframe.set('width', oState.width);
-	eOutputframe.set('height', oState.height);
+	eOutputframe.set('width', oState.iframe_width);
+	eOutputframe.set('height', oState.iframe_height);
+	eOutputframe.set('src', sURL);
 };	
 
 var Comet = new Class({
@@ -24,7 +22,6 @@ var Comet = new Class({
 	
 	connect: function()
   {
-    //console.log('connect this', this);
     this.ajax.send('timestamp='+this.timestamp);
   },
   
@@ -37,8 +34,7 @@ var Comet = new Class({
 			url: this.url,
       method: 'get',
       onSuccess: function(response) {
-				//console.log('ajax sucess this',this,'response', response);
-        
+		    
 				if($defined(response.timestamp))
 				{
 					// handle the server response
@@ -49,30 +45,25 @@ var Comet = new Class({
 				else if ($defined(response.recieved))
 				{
 				  this.noerror = true;
-				  //console.log("response.recieved =", response.recieved);
 				}
 				else
 				{
-				  //console.log("failing response =", response);
 					this.noerror = false;
 				}
       }.bind(this),
       
       onComplete: function(transport) {
-        
-        //console.log("onComplete transport =", transport);
         // send a new ajax request when this request is finished
         if (!this.noerror)
 				{
-					//console.log('error retrying');
-          // if a connection problem occurs, try to reconnect each 5 seconds
+		      // if a connection problem occurs, try to reconnect each 5 seconds
           this.connect().delay(5000); 
         }
 				else
         {
 					this.connect();
         }
-				this.noerror = false;
+				this.noerror = true;
       }.bind(this)
 		});
 
@@ -85,33 +76,26 @@ var Comet = new Class({
   handleResponse: function(response)
   {
 		formResponse = new Hash(JSON.decode(response.msg));
-		//console.log('formResponse', formResponse);
 		bChanged = true;
 		
-
 		var oForm = $("controller");//el.getParent('form');
 		if(bControls)
 		{
 			bChanged = false;
-			//"width":800,"height":800
 			oForm.getElements('input,select,textarea').each(function(item){
 				var sElementName = item.get('name');
-				//console.log('item',item,'key',key);
-				//this covers the width / height and other base var here
 				
 				xValue = formResponse.getFromPath(sElementName);
-				//console.log("xValue =", xValue);
 				if($defined(xValue) && $defined(sElementName))
 				{
 					if(formResponse[sElementName] == xValue)
 					{
-						//console.log(sElementName, 'unchanged');
+						//Only here if nothing has changed
 					}
 					else
 					{
 						bChanged = true;
 						item.set('value', xValue);
-						//console.log("xValue =", xValue);
 						if ($defined(item.oSlider))
 						{
 						  item.oSlider.set(xValue);
@@ -120,19 +104,15 @@ var Comet = new Class({
 				}
 				
 				
-				//if it doesn't exist its a new bit so create it using the templating functions.
+				// TODO : if it doesn't exist its a new bit so create it using the templating functions.
 			});
 		}
 		if (bChanged && bViewer)
 		{
 			rebuildSVG(formResponse);
 		}
-    //oForm.getElements('input,select,textarea');
-		    
-    //$('content').innerHTML += '<div>' + response['msg'] + '</div>';
   },
 	
-
 	
   doRequest: function(request)
   {
@@ -209,28 +189,6 @@ Element.implement({
 });
 
 
-Hash.implement({
-    setFromPath: function(path, value) {
-        var source = this;
-        var prop = '';
-
-        path.replace(/\[([^\]]+)\]|\.([^.[]+)|[^[.]+/g, function(match) {
-            if (!source) return;
-            prop = arguments[2] || arguments[1] || arguments[0];
-
-            if (!(prop in source)) source[prop] = {};
-            lastSource = source;
-            source = source[prop];
-            return match;
-        });
-
-        lastSource[prop] = value;
-        return this;
-    }
-});
-
-
-
 // AUTOLOAD CODE BLOCK (MAY BE CHANGED OR REMOVED)
 window.addEvent("domready", function() {
 	
@@ -239,6 +197,6 @@ window.addEvent("domready", function() {
 	if(bControls)
 	{
 		$$("input").filter(function(input) { return input.hasClass("slider"); }).mooslider({});
-		$('controller').getElements('input').addEvent('change', function(event){oFormChangeTimer = formChange(event.target)});
+		$('controller').getElements('input').addEvent('change', function(event){oFormChangeTimer = formChange(event.target);});
   }
 });
