@@ -3,21 +3,19 @@
   class actor_sierpinsky extends actor
   {
     
+   var $label = 'Sierpinsky Triangle';
+    
 	/**
 		* 
 		* @var array
 		* array of controls
 		*/
 		var $aControls = array(
-		  'levels' => array('title'=>'Number of Levels', 'default' => 5, 'type'=>'int', 'min'=>3, 'max'=>6),
-      'size' => array('title'=>'Size', 'default' => 150, 'type'=>'int', 'min'=>50, 'max'=>500),
-      'image_url' => array('title'=>'URL for picture','default' => 'images/Fagus_sylvatica_autumn_leaves.jpg', 'type'=>'string'),
-      
-      'pos_ppath' => array('title'=>'Where does it go on the screen', 'default' => '150,150;200,200', 'type'=>'path', 'regexp'=>'([0-9]+\,[0-9]+)\;([0-9]+\,[0-9]+\;?)+'),
-      'pos_duration' => array('title'=>'How long does the position movement last', 'default' => 60, 'type'=>'int', 'min'=>10, 'max'=>120),
-      
-      'rotation_duration' => array('title'=>'How long does the rotation last','default' => 60, 'type'=>'int', 'min'=>10, 'max'=>120),
-      
+		  array('name' => 'levels','title'=>'Number of Levels', 'default' => 5, 'type'=>'int', 'min'=>3, 'max'=>6),
+      array('name' => 'size','title'=>'Size', 'default' => 150, 'type'=>'int', 'min'=>50, 'max'=>500, 'live'=>true),
+      array('name' => 'pos_ppath','title'=>'Where does it go on the screen', 'default' => '150,150;200,200', 'type'=>'path', 'regexp'=>'([0-9]+\,[0-9]+)\;([0-9]+\,[0-9]+\;?)+'),
+      array('name' => 'pos_duration','title'=>'How long does the position movement last', 'default' => 60, 'type'=>'int', 'min'=>10, 'max'=>120),
+      array('name' => 'rotation_duration','title'=>'How long does the rotation last','default' => 60, 'type'=>'int', 'min'=>10, 'max'=>120),
 		  );
 		
     function calc()

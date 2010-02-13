@@ -1,0 +1,32 @@
+<tr>
+	<th colspan="4"><h2>{label|html} ({sInstance})</h2>
+		<input name="actors.{sInstance}.type" value="{type|html-attr-value}" type="hidden" />
+	</th>
+	</tr>
+{.section aControls}
+	{.repeated section @}
+		<tr>
+			<th>{title}</th>
+			<td>
+			{.section aType}
+				{.section int}
+					<input name="actors.{sInstance}.{name}" value="{default|html-attr-value}" size="4" min="{min|html-attr-value}" max="{max|html-attr-value}" class="slider"/>
+				{.end}
+				
+				{.section url}
+					<input name="actors.{sInstance}.{name}" value="{default|html-attr-value}" size="{.section length}{length}{.or}50{.end}"/>
+				{.end}
+				{.section string}
+					<input name="actors.{sInstance}.{name}" value="{default|html-attr-value}" size="{.section length}{length}{.or}25{.end}"/>
+				{.end}
+				{.section path}
+					<input name="actors.{sInstance}.{name}" value="{default|html-attr-value}" size="{.section length}{length}{.or}25{.end}"/>
+				{.end}
+				{.section percentagepath}
+					<input name="actors.{sInstance}.{name}" value="{default|html-attr-value}" size="{.section length}{length}{.or}25{.end}"/>
+				{.end}
+			{.end}
+			</td>
+		</tr>
+	{.end}
+{.end}

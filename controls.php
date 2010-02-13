@@ -16,25 +16,26 @@
   //echo "\n<br><pre>\naParameters  =" .var_export($aParameters , TRUE)."</pre>";
   
   $aScene = array();
-
+  
+  $sCTemplate = file_get_contents(dirname(__FILE__).'/templates/controls.html');
+  $oCTemplate = new JsonTemplate($sCTemplate);
+  $aActorControls = array();
+  
   foreach($aParameters['actors'] as $sInstance => $aActor)
   {
     $oActor =& getActor($aActor, $sInstance);
-
-    $aOut[] = array('sDef'=>$oActor->getDefs(), 'sBody'=>$oActor->getBody()) ;
-    $aActorParams[] = $oActor;//json_decode(json_encode($oActor), true);
+    //echo "\n<br><pre>\noActor  =" .var_export($oActor , TRUE)."</pre>";
+    $sControlSection = $oCTemplate->expand($oActor);
+    $aActorControls[] = $sControlSection;
   }
   
-  $aOut = array('aBodies' => $aOut,
-                'aDefs'   => $aOut,
-                'actors'  => $aActorParams,
+  $aOut = array('aActorControls'  => $aActorControls,
                 'width'   => $aParameters['width'],
                 'height'  => $aParameters['height']
                 );
   
-  $sTemplate = file_get_contents(dirname(__FILE__).'/templates/output.svg');
+  $sTemplate = file_get_contents(dirname(__FILE__).'/templates/form.html');
   $oTemplate = new JsonTemplate($sTemplate);
   $sOut = $oTemplate->expand($aOut);
-  header("Content-Type: image/svg+xml");
+  //header("Content-Type: image/svg+xml");
   echo $sOut;
-  
