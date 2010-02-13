@@ -9,19 +9,19 @@
 		* array of controls
 		*/
 		var $aControls = array(
-		  'sides' => array('title'=>'Number of Sides', 'default' => 3, 'type'=>'int', 'min'=>3, 'max'=>12),
-      'radius' => array('title'=>'Radius', 'default' => 150, 'type'=>'int', 'min'=>50, 'max'=>500),
-      'image_url' => array('title'=>'URL for picture','default' => 'images/Fagus_sylvatica_autumn_leaves.jpg', 'type'=>'string'),
+		  array('name' => 'sides','title'=>'Number of Sides', 'default' => 3, 'type'=>'int', 'min'=>3, 'max'=>12),
+      array('name' => 'radius','title'=>'Radius', 'default' => 150, 'type'=>'int', 'min'=>50, 'max'=>500),
+      array('name' => 'image_url','length'=>100,'title'=>'URL for picture','default' => 'images/Fagus_sylvatica_autumn_leaves.jpg', 'type'=>'url'),
       
-      'pos_ppath' => array('title'=>'Where does it go on the screen', 'default' => '150,150;200,200', 'type'=>'path', 'regexp'=>'([0-9]+\,[0-9]+)\;([0-9]+\,[0-9]+\;?)+'),
-      'pos_duration' => array('title'=>'How long does the position movement last', 'default' => 60, 'type'=>'int', 'min'=>10, 'max'=>120),
+      array('name' => 'pos_ppath','title'=>'Where does it go on the screen', 'default' => '150,150;200,200', 'type'=>'path', 'regexp'=>'([0-9]+\,[0-9]+)\;([0-9]+\,[0-9]+\;?)+'),
+      array('name' => 'pos_duration','title'=>'How long does the position movement last', 'default' => 60, 'type'=>'int', 'min'=>10, 'max'=>120),
       
-      'rotation_duration' => array('title'=>'How long does the rotation last','default' => 60, 'type'=>'int', 'min'=>10, 'max'=>120),
+      array('name' => 'rotation_duration','title'=>'How long does the rotation last','default' => 60, 'type'=>'int', 'min'=>10, 'max'=>120),
       
-      'slip_ppath' => array('title'=>'Where does the trinagle slip through','default' => '0,0;100,100', 'type'=>'percentagepath', 'regexp'=>'([0-9]+\,[0-9]+)\;([0-9]+\,[0-9]+\;?)+'),
-      'slip_duration' => array('title'=>'Image slip animation last','default' => 60, 'type'=>'int', 'min'=>10, 'max'=>120),
+      array('name' => 'slip_ppath','title'=>'Where does the triangle slip through','default' => '0,0;100,100', 'type'=>'percentagepath', 'regexp'=>'([0-9]+\,[0-9]+)\;([0-9]+\,[0-9]+\;?)+'),
+      array('name' => 'slip_duration','title'=>'Image slip animation last','default' => 60, 'type'=>'int', 'min'=>10, 'max'=>120),
       
-      'orginal_scale' => array('title'=>'How much bigger than the kalediscope is the image','default' => 2, 'type'=>'int', 'min'=>1, 'max'=>5),
+      array('name' => 'orginal_scale','title'=>'How much bigger than the kalediscope is the image','default' => 2, 'type'=>'int', 'min'=>1, 'max'=>5),
 		  );
 
 	/**
@@ -41,12 +41,11 @@
 		var $aCalculated = array();
 		
 		
-   
+    var $label = 'Kaleidoscope of an Image';
     
        
     function calc()
     {
-          
       //$this->aValues['center_x'] = $this->aValues['output_width'] / 2; 
       //$this->aValues['center_y'] = $this->aValues['output_height'] / 2;
       

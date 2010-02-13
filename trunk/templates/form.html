@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="css/controls.css" type="text/css" />
+	<script type="text/javascript">
+	var bControls = true;
+	var bViewer = false;
+	</script>
+	<script type="text/javascript" src="js/mootools-1.2.4-core-jm.js"></script>
+	<script type="text/javascript" src="js/mootools-1.2.4.4-more.js"></script>
+	<script type="text/javascript" src="js/controls.js"></script>
+	<title>Collaborative Manipulation of Animations - Control Panel</title>
+</head>
+  <body>
+  <h1>Collaborative Manipulation of Animations - Control Panel</h1>
+    <form id="controller" action="">
+    <table>
+    <tr>
+    	<th>Width</th>
+    	<td><input name="width" value="{width|html-attr-value}" size="5" min="0" max="1500" class="slider"/></td>
+    	<th>Height</th>
+    	<td><input name="height" value="{height|html-attr-value}" size="5" min="0" max="1500" class="slider"/></td>
+    </tr>
+	{.repeated section aActorControls}
+		{@}
+	{.end}
+    </table>
+    </form>
+    
+  </body>
+</html>

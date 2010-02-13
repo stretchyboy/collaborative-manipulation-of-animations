@@ -15,19 +15,22 @@
   $aParameters = json_decode($sJSON, true);
   //echo "\n<br><pre>\naParameters  =" .var_export($aParameters , TRUE)."</pre>";
   
+  
+  
+  
   $aScene = array();
 
   foreach($aParameters['actors'] as $sInstance => $aActor)
   {
-    $oActor =& getActor($aActor, $sInstance);
+    $oActor =& getActor($aActor, $sInstance, false);
 
     $aOut[] = array('sDef'=>$oActor->getDefs(), 'sBody'=>$oActor->getBody()) ;
-    $aActorParams[] = $oActor;//json_decode(json_encode($oActor), true);
+    //$aActorParams[] = $oActor;//json_decode(json_encode($oActor), true);
   }
   
   $aOut = array('aBodies' => $aOut,
                 'aDefs'   => $aOut,
-                'actors'  => $aActorParams,
+                //'actors'  => $aActorParams,
                 'width'   => $aParameters['width'],
                 'height'  => $aParameters['height']
                 );

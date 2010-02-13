@@ -1,5 +1,5 @@
-{"width":800,"height":800,"actors":[
-            {"sInstance":"test1","type":"kaleidoscope","sides":3, "radius":75, "rotation_duration":15},
-            {"sInstance":"test2","type":"kaleidoscope", "sides":5, "pos_control":[{"x":600,"y":400},{"x":400,"y":300}]},
-            {"sInstance":"test3","type":"sierpinsky", "levels":5, "size":200, "pos_control":[{"x":200,"y":200}, {"x":600,"y":400}]}
-          ]}
+{"width":800,"height":800,"actors":{
+	"test1":{"type":"kaleidoscope","sides":3, "radius":75, "rotation_duration":15},
+	"test2":{"type":"kaleidoscope", "sides":5, "pos_ppath":"600,400;400,300"},
+	"test3":{"type":"sierpinsky", "levels":5, "size":200, "pos_ppath":"200,200;600,400"}
+}}

@@ -38,30 +38,56 @@ class actor
 		*/
 		var $aValues = array();
 	
-	
+	/**
+		* 
+		* @var string
+		* type of module
+		*/
+		var $type = null;
+		
+		/**
+		* 
+		* @var string
+		* Label of module
+		*/
+		var $label = null;
+		
+		
     /**
      * @param array $aParams
      * @param bool $bCalc  
      * @return bool
      */
-    function __construct($aParams, $bCalc = true)
+    function __construct($aParams, $sInstance = null, $bCalc = true)
     {
-       foreach($this->aControls as $sField => $aField)
+      
+      $this->type = str_replace("actor_","", get_class($this));
+       foreach(array_keys($this->aControls) as $iKey)
        {
+         $aField = $this->aControls[$iKey];
+         if(!isset($this->aControls[$iKey]['type']))
+         {
+           $this->aControls[$iKey]['type'] = 'int';
+         }
+         
+         $this->aControls[$iKey]['aType'][$this->aControls[$iKey]['type']] = 1;
+         
          if(isset($aField['default']))
          {
-           $this->aValues[$sField] = $aField['default'];
+           $this->aValues[$aField['name']] = $aField['default'];
          }
        }
        
-       if(isset($aParams['sInstance']))
-       { 
-         $this->sInstance = $aParams['sInstance'];
+        //echo "\n<br><pre>\nthis->aControls =" .var_export($this->aControls, TRUE)."</pre>";
+        
+       
+       if($sInstance)
+       {
+         $this->sInstance = $sInstance;
        }
        else
        {
-       
-         $this->sInstance = time()%1000; // just a test string
+         $this->sInstance = time(); // just a test string
        }
        
        foreach($aParams as $sKey => $xValue)
@@ -93,6 +119,7 @@ class actor
     {
       $aValues = $this->aValues;
       $aValues['sInstance'] = $this->sInstance;
+      $aValues['type'] = str_replace("actor_","", get_class($this));
       $sJSON = json_encode($aValues);
       $sTemplateFile = $this->sModulePath.'/'.$sTemplateName;
       $sTemplate = file_get_contents($sTemplateFile);
