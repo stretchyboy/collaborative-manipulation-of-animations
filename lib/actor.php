@@ -139,7 +139,7 @@ class actor
       return $this->expandTemplate('body.svg');
     }
     
-    function getAnimatedXYFromPath($sControlPath, $fMaxX = 100, $fMaxY = 100)
+    function getAnimatedCoordsFromPath($sControlPath, $fMaxX = 100, $fMaxY = 100)
     {
       $aControlPath = array();
       $aSections = split(';', trim($sControlPath));
@@ -148,6 +148,13 @@ class actor
         $aSections = split(',', $sSection);
         $aControlPath[] = array('x'=>(int) trim($aSections[0]), 'y'=>(int) trim($aSections[1]));
       }
+      return $aControlPath;
+    }
+    
+    function getAnimatedXYFromPath($sControlPath, $fMaxX = 100, $fMaxY = 100)
+    {
+      $aControlPath = $this->getAnimatedCoordsFromPath($sControlPath, $fMaxX, $fMaxY);
+      
       return $this->getAnimatedXY($aControlPath, $fMaxX, $fMaxY);
     }
     

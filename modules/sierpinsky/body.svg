@@ -1,4 +1,4 @@
-    <g id="{sInstance}_rotator">
+    <g id="{sInstance}_rotator" transform="translate({pos_coords.0.x},{pos_coords.0.y})">
         <g>
          <g>
           <use xlink:href="#{sInstance}_level_{levels}" transform="scale({scale})" />
